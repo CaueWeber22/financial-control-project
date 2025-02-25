@@ -39,7 +39,7 @@ public class UserController {
 
     // GET to search users by email
     @GetMapping(
-            produces = MediaType.APPLICATION_JSON_VALUE
+        produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<UserEntity> getUserByEmail(@RequestParam String email) {
         // Calling the user search by email function
