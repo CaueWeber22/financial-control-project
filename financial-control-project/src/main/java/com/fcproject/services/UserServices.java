@@ -1,6 +1,6 @@
 package com.fcproject.services;
 
-import com.fcproject.models.UserEntity;
+import com.fcproject.data.models.UserEntity;
 import com.fcproject.repository.UserRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

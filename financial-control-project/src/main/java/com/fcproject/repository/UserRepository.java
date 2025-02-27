@@ -1,6 +1,6 @@
 package com.fcproject.repository;
 
-import com.fcproject.models.UserEntity;
+import com.fcproject.data.models.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

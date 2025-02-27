@@ -1,7 +1,7 @@
 package com.fcproject.controllers;
 
 import com.fcproject.exception.UserAlreadyExistsException;
-import com.fcproject.models.UserEntity;
+import com.fcproject.data.models.UserEntity;
 import com.fcproject.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

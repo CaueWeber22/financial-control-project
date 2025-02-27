@@ -1,4 +1,4 @@
-package com.fcproject.models;
+package com.fcproject.data.models;
 
 public enum Gender {
     MALE,
