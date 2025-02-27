@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.fcproject.data.models.Gender;
 
 
-public class UserDto implements Serializable {
+public class UserDTO implements Serializable {
     private static final Long serialVersionUID = 1L;
 
     private long id;
@@ -21,7 +21,7 @@ public class UserDto implements Serializable {
     private Gender gender;
 
     //Constructor
-    public UserDto() {}
+    public UserDTO() {}
 
     //Getters and Setters
     public Gender getGender() {return gender;}
@@ -78,7 +78,7 @@ public class UserDto implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof UserDto that)) return false;
+        if (!(o instanceof UserDTO that)) return false;
         return getId() == that.getId() && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getPhone(), that.getPhone()) && Objects.equals(getGender(), that.getGender());
     }
 

@@ -1,7 +1,9 @@
 package com.fcproject.controllers;
 
-import com.fcproject.exception.UserAlreadyExistsException;
+import com.fcproject.data.mapper.ObjectMapper;
 import com.fcproject.data.models.UserEntity;
+import com.fcproject.exception.UserAlreadyExistsException;
+import com.fcproject.data.dto.UserDTO;
 import com.fcproject.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,17 +25,17 @@ public class UserController {
         produces = MediaType.APPLICATION_JSON_VALUE,
         consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> createUser(@RequestBody UserEntity user) {
-
+    public ResponseEntity<String> createUser(@RequestBody UserDTO user) {
         if (user.getEmail() == null || user.getPassword() == null || user.getFirstName() == null || user.getLastName() == null) {
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
-            UserEntity userGet = userServices.getUserByEmail(user.getEmail());
+            UserDTO userGet = userServices.getUserByEmail(user.getEmail());
             if (userGet != null) {
                 throw new UserAlreadyExistsException("An user with this e-mail already exists");
             }
-            return userServices.createUser(user);
+
+            return userServices.createUser(ObjectMapper.parseObject(user, UserEntity.class));
         }
     }
 
@@ -41,9 +43,9 @@ public class UserController {
     @GetMapping(
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<UserEntity> getUserByEmail(@RequestParam String email) {
+    public ResponseEntity<UserDTO> getUserByEmail(@RequestParam String email) {
         // Calling the user search by email function
-        UserEntity user = userServices.getUserByEmail(email);
+        UserDTO user = userServices.getUserByEmail(email);
 
         if (user != null) {
             return ResponseEntity.ok(user);
@@ -57,12 +59,12 @@ public class UserController {
             value = "{user_id}/",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<UserEntity> getUserById(@PathVariable Integer user_id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer user_id) {
 
-        Optional<UserEntity> user = userServices.getUserById(user_id);
+        UserDTO user = userServices.getUserById(user_id);
 
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
+        if (user != null) {
+            return ResponseEntity.ok(user);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
@@ -70,9 +72,9 @@ public class UserController {
     //User delete
     @DeleteMapping("{user_id}/")
     public ResponseEntity<String> deleteUser(@PathVariable("user_id") Integer user_id) {
-        Optional<UserEntity> user = userServices.getUserById(user_id);
+        UserDTO user = userServices.getUserById(user_id);
 
-        if (user.isPresent()) {
+        if (user != null) {
             userServices.deleteUser(user_id);
 
             return ResponseEntity.noContent().build();
