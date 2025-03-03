@@ -27,7 +27,6 @@ public class UserController {
     )
     public ResponseEntity<String> createUser(@RequestBody UserDTO user) {
         if (user.getEmail() == null || user.getPassword() == null || user.getFirstName() == null || user.getLastName() == null) {
-
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             UserDTO userGet = userServices.getUserByEmail(user.getEmail());

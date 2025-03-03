@@ -1,6 +1,8 @@
 package com.fcproject.data.models;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 import jakarta.persistence.*;
 
@@ -31,6 +33,9 @@ public class UserEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     private Gender gender;
+
+    @Column(name="date_of_birth", nullable = false)
+    private LocalDate birthDay;
 
     //Constructor
     public UserEntity() {}
@@ -88,14 +93,18 @@ public class UserEntity implements Serializable {
         this.id = id;
     }
 
+    public LocalDate getBirthDay() {return birthDay;}
+
+    public void setBirthDay(LocalDate birthDay) {this.birthDay = birthDay;}
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof UserEntity that)) return false;
-        return getId() == that.getId() && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getPhone(), that.getPhone()) && Objects.equals(getGender(), that.getGender());
+        return getId() == that.getId() && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getPhone(), that.getPhone()) && getGender() == that.getGender() && Objects.equals(getBirthDay(), that.getBirthDay());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getPhone(), getGender());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getPhone(), getGender(), getBirthDay());
     }
 }
