@@ -22,8 +22,8 @@ public class UserController {
 
     // POST to create users
     @PostMapping(
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     public ResponseEntity<String> createUser(@RequestBody UserDTO user) {
         if (user.getEmail() == null || user.getPassword() == null || user.getFirstName() == null || user.getLastName() == null) {
@@ -40,7 +40,7 @@ public class UserController {
 
     // GET to search users by email
     @GetMapping(
-        produces = MediaType.APPLICATION_JSON_VALUE
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     public ResponseEntity<UserDTO> getUserByEmail(@RequestParam String email) {
         // Calling the user search by email function
@@ -56,7 +56,7 @@ public class UserController {
     // GET to search users by id
     @GetMapping(
             value = "{user_id}/",
-            produces = MediaType.APPLICATION_JSON_VALUE
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     public ResponseEntity<UserDTO> getUserById(@PathVariable Integer user_id) {
 
