@@ -1,11 +1,9 @@
-package com.fcproject.data.dto;
+package com.fcproject.data.dto.userDTO;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fcproject.data.models.Gender;
 import com.fcproject.data.models.UserEntity;
@@ -22,7 +20,6 @@ public class UserDTO implements Serializable {
     @JsonProperty("last_name")
     private String lastName;
     private String email;
-    private String password;
     private String phone;
     private Gender gender;
 
@@ -43,14 +40,6 @@ public class UserDTO implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
@@ -92,11 +81,11 @@ public class UserDTO implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof UserEntity that)) return false;
-        return getId() == that.getId() && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getPhone(), that.getPhone()) && getGender() == that.getGender() && Objects.equals(getBirthDay(), that.getBirthDay());
+        return getId() == that.getId() && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getEmail(), that.getEmail()) && Objects.equals(getPhone(), that.getPhone()) && getGender() == that.getGender() && Objects.equals(getBirthDay(), that.getBirthDay());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getPhone(), getGender(), getBirthDay());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPhone(), getGender(), getBirthDay());
     }
 }

@@ -1,6 +1,6 @@
 package com.fcproject.services;
 
-import com.fcproject.data.dto.UserDTO;
+import com.fcproject.data.dto.userDTO.UserDTO;
 import com.fcproject.data.mapper.ObjectMapper;
 import com.fcproject.data.models.UserEntity;
 import com.fcproject.repository.UserRepository;

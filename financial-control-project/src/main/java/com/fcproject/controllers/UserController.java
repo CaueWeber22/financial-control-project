@@ -3,15 +3,14 @@ package com.fcproject.controllers;
 import com.fcproject.data.mapper.ObjectMapper;
 import com.fcproject.data.models.UserEntity;
 import com.fcproject.exception.UserAlreadyExistsException;
-import com.fcproject.data.dto.UserDTO;
+import com.fcproject.data.dto.userDTO.UserDTO;
+import com.fcproject.data.dto.userDTO.UserPostDTO;
 import com.fcproject.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user/")
@@ -25,7 +24,7 @@ public class UserController {
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
         consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
-    public ResponseEntity<String> createUser(@RequestBody UserDTO user) {
+    public ResponseEntity<String> createUser(@RequestBody UserPostDTO user) {
         if (user.getEmail() == null || user.getPassword() == null || user.getFirstName() == null || user.getLastName() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
