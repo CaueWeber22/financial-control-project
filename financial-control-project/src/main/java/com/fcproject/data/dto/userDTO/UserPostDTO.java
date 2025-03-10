@@ -11,7 +11,7 @@ import com.fcproject.data.models.UserEntity;
 
 public class UserPostDTO extends UserDTO implements Serializable {
     private static final Long serialVersionUID = 1L;
-    
+
     private String password;
 
     //Constructor

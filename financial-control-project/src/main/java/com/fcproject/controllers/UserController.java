@@ -2,6 +2,7 @@ package com.fcproject.controllers;
 
 import com.fcproject.data.mapper.ObjectMapper;
 import com.fcproject.data.models.UserEntity;
+import com.fcproject.exception.NotAllFieldsFilledException;
 import com.fcproject.exception.UserAlreadyExistsException;
 import com.fcproject.data.dto.userDTO.UserDTO;
 import com.fcproject.data.dto.userDTO.UserPostDTO;
@@ -25,8 +26,9 @@ public class UserController {
         consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     public ResponseEntity<String> createUser(@RequestBody UserPostDTO user) {
-        if (user.getEmail() == null || user.getPassword() == null || user.getFirstName() == null || user.getLastName() == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        //Check if the fields are empty
+        if ((user.getEmail().isBlank() || user.getEmail().isEmpty()) || (user.getPassword().isBlank() || user.getPassword().isEmpty()) || (user.getFirstName().isBlank() || user.getFirstName().isEmpty()) || (user.getLastName().isBlank() || user.getLastName().isEmpty())) {
+            throw new NotAllFieldsFilledException("All fields must be filled");
         } else {
             UserDTO userGet = userServices.getUserByEmail(user.getEmail());
             if (userGet != null) {
