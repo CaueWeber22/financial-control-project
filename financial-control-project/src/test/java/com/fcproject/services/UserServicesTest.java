@@ -2,6 +2,7 @@ package com.fcproject.services;
 
 import com.fcproject.TestsMocks.UserMocks;
 import com.fcproject.data.dto.userDTO.UserDTO;
+import com.fcproject.data.models.UserEntity;
 import com.fcproject.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,11 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,6 +39,7 @@ class UserServicesTest {
 
     @Test
     void getUserByEmail() {
+
     }
 
     @Test

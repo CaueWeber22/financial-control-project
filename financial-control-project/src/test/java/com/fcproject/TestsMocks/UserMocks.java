@@ -12,29 +12,29 @@ import static org.mockito.Mockito.when;
 public class UserMocks {
 
     public UserDTO mockUserDTO(Integer id) {
-        UserDTO userDTO = mock(UserDTO.class);
+        UserDTO user = new UserDTO();
 
-        when(userDTO.getId()).thenReturn(Long.valueOf(id));
-        when(userDTO.getFirstName()).thenReturn("Name"+id);
-        when(userDTO.getLastName()).thenReturn("LastName"+id);
-        when(userDTO.getEmail()).thenReturn("test@email.com"+id);
-        when(userDTO.getPhone()).thenReturn("+5511999999999");
-        when(userDTO.getGender()).thenReturn(Gender.MALE);
-        when(userDTO.getBirthDay()).thenReturn(LocalDate.of(1990, 5, 15));
+        user.setId(id);
+        user.setFirstName("Name"+id);
+        user.setLastName("LastName"+id);
+        user.setEmail("test@email.com"+id);
+        user.setPhone("+5511999999999");
+        user.setGender(Gender.MALE);
+        user.setBirthDay(LocalDate.parse("1900-05-05"));
 
-        return userDTO;
+        return user;
     }
     public UserPostDTO mockUserPostDTO(Integer id) {
         UserPostDTO userPostDTO = mock(UserPostDTO.class);
 
-        when(userPostDTO.getId()).thenReturn(2L);
-        when(userPostDTO.getFirstName()).thenReturn("Name"+id);
-        when(userPostDTO.getLastName()).thenReturn("LastName"+id);
-        when(userPostDTO.getEmail()).thenReturn("test@email.com"+id);
-        when(userPostDTO.getPhone()).thenReturn("+5511988888888");
-        when(userPostDTO.getGender()).thenReturn(Gender.FEMALE);
-        when(userPostDTO.getBirthDay()).thenReturn(LocalDate.of(1995, 8, 20));
-        when(userPostDTO.getPassword()).thenReturn("Password123");
+        userPostDTO.setId(id);
+        userPostDTO.setFirstName("Name"+id);
+        userPostDTO.setLastName("LastName"+id);
+        userPostDTO.setEmail("test@email.com"+id);
+        userPostDTO.setPhone("+5511999999999");
+        userPostDTO.setGender(Gender.MALE);
+        userPostDTO.setBirthDay(LocalDate.parse("1900-05-05"));
+        userPostDTO.setPassword("password123");
 
         return userPostDTO;
     }
