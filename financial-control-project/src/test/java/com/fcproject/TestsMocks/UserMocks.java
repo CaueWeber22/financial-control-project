@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 public class UserMocks {
 
+    //User Entity for tests
     public UserEntity mockUserEntity(Integer id) {
         UserEntity user = new UserEntity();
 
@@ -26,6 +27,7 @@ public class UserMocks {
         return user;
     }
 
+    //UserDTO (used in GET endpoints) for tests
     public UserDTO mockUserDTO(Integer id) {
         UserDTO user = new UserDTO();
 
@@ -39,6 +41,8 @@ public class UserMocks {
 
         return user;
     }
+
+    //User Post DTO  for tests
     public UserPostDTO mockUserPostDTO(Integer id) {
         UserPostDTO userPostDTO = mock(UserPostDTO.class);
 
