@@ -12,18 +12,18 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.when;
 import org.mockito.ArgumentCaptor;
-import static org.mockito.Mockito.verify;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.ArgumentMatchers.anyInt;
 import java.time.LocalDate;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
@@ -112,5 +112,13 @@ class UserServicesTest {
 
     @Test
     void deleteUser() {
+        Integer id = 2;
+        UserEntity user = input.mockUserEntity(id);
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+
+        userServices.deleteUser(id);
+
+        verify(userRepository, times(1)).findById(anyInt());
+
     }
 }
