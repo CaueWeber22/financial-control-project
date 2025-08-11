@@ -2,10 +2,10 @@ package com.fcproject.controllers;
 
 import com.fcproject.data.mapper.ObjectMapper;
 import com.fcproject.data.models.UserEntity;
-import com.fcproject.exception.NotAllFieldsFilledException;
-import com.fcproject.exception.UserAlreadyExistsException;
+import com.fcproject.exception.userExceptions.NotAllFieldsFilledException;
 import com.fcproject.data.dto.userDTO.UserDTO;
 import com.fcproject.data.dto.userDTO.UserPostDTO;
+import com.fcproject.exception.userExceptions.UserAlreadyExistsException;
 import com.fcproject.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -23,20 +23,13 @@ public class UserController {
     // POST to create users
     @PostMapping(
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+        value = "/create"
     )
     public ResponseEntity<String> createUser(@RequestBody UserPostDTO user) {
-        //Check if the fields are empty
-        if ((user.getEmail().isBlank() || user.getEmail().isEmpty()) || (user.getPassword().isBlank() || user.getPassword().isEmpty()) || (user.getFirstName().isBlank() || user.getFirstName().isEmpty()) || (user.getLastName().isBlank() || user.getLastName().isEmpty())) {
-            throw new NotAllFieldsFilledException("All fields must be filled");
-        } else {
-            UserDTO userGet = userServices.getUserByEmail(user.getEmail());
-            if (userGet != null) {
-                throw new UserAlreadyExistsException("An user with this e-mail already exists");
-            }
+        userServices.createUser(ObjectMapper.parseObject(user, UserEntity.class));
 
-            return userServices.createUser(ObjectMapper.parseObject(user, UserEntity.class));
-        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // GET to search users by email
@@ -44,17 +37,9 @@ public class UserController {
         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     public ResponseEntity<UserDTO> getUserByEmail(@RequestParam String email) {
-        // Calling the user search by email function
-        UserDTO user = userServices.getUserByEmail(email);
-
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        return ResponseEntity.ok(userServices.getUserByEmail(email));
     }
-
-    // GET to search users by id
+   // GET to search users by id
     @GetMapping(
             value = "{user_id}/",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}

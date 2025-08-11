@@ -1,6 +1,7 @@
-package com.fcproject.exception.handler;
+package com.fcproject.exception;
 
-import com.fcproject.exception.ExceptionResponse;
+
+import com.fcproject.exception.userExceptions.NotAllFieldsFilledException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,16 +14,16 @@ import java.util.Date;
 
 @ControllerAdvice
 @RestController
-public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler {
+public class GlobalHanlder extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, HttpStatus status, WebRequest request) {
+    @ExceptionHandler(GlobalErrorException.class)
+    public final ResponseEntity<ExceptionResponse> handleGlobalErrorException(GlobalErrorException ex, WebRequest request) {
         ExceptionResponse exResponse = new ExceptionResponse(
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false)
         );
 
-        return new ResponseEntity<>(exResponse, status);
+        return new ResponseEntity<>(exResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
