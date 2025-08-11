@@ -2,10 +2,8 @@ package com.fcproject.controllers;
 
 import com.fcproject.data.mapper.ObjectMapper;
 import com.fcproject.data.models.UserEntity;
-import com.fcproject.exception.userExceptions.NotAllFieldsFilledException;
 import com.fcproject.data.dto.userDTO.UserDTO;
 import com.fcproject.data.dto.userDTO.UserPostDTO;
-import com.fcproject.exception.userExceptions.UserAlreadyExistsException;
 import com.fcproject.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +37,7 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserByEmail(@RequestParam String email) {
         return ResponseEntity.ok(userServices.getUserByEmail(email));
     }
+
    // GET to search users by id
     @GetMapping(
             value = "{user_id}/",
